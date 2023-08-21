@@ -22,6 +22,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping(value = "/api",
 produces = "application/json",
+consumes = "application/json",
 method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
 public class BusinessController {
 
