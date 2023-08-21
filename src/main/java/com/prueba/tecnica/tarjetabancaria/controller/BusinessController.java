@@ -20,7 +20,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/api")
+@RequestMapping(value = "/api",
+produces = "application/json",
+method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
 public class BusinessController {
 
     @Autowired
