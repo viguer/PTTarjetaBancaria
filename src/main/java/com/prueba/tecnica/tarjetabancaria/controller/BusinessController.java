@@ -46,7 +46,9 @@ public class BusinessController {
 
     }
 
-    @PostMapping("/card/enroll")
+    @PostMapping(value = "/card/enroll",
+    consumes = "application/json",
+    produces = "application/json")
     public ResponseEntity<TarjetaEnrollResponse> tarjetaEnroll(@RequestBody TarjetaEnrollRequest tarjetaEnrollRequest) {
         TarjetaEnrollResponse tarjetaEnrollResponse = new TarjetaEnrollResponse();
         try {
