@@ -20,8 +20,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(value = "/api",
-method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
+@RequestMapping(value = "/api")
+@CrossOrigin
 public class BusinessController {
 
     @Autowired
