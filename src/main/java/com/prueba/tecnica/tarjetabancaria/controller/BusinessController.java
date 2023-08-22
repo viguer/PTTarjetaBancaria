@@ -22,8 +22,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/api",
-        method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE},
-        consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+        method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
 @CrossOrigin
 public class BusinessController {
 
