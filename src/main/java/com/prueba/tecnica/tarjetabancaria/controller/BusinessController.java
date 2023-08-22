@@ -50,7 +50,6 @@ public class BusinessController {
 
     @PostMapping(value = "/card/enroll", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TarjetaEnrollResponse> tarjetaEnroll(@RequestBody TarjetaEnrollRequest tarjetaEnrollRequest) {
-        System.out.println("Entrada: " + tarjetaEnrollRequest.getCardId());
         TarjetaEnrollResponse tarjetaEnrollResponse = new TarjetaEnrollResponse();
         try {
             tarjetaService.tarjetaEnroll(tarjetaEnrollRequest.getCardId());
