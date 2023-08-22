@@ -11,6 +11,7 @@ import com.prueba.tecnica.tarjetabancaria.services.TarjetaService;
 import com.prueba.tecnica.tarjetabancaria.services.TransaccionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping(value = "/api",
 method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
+@CrossOrigin
 public class BusinessController {
 
     @Autowired
@@ -46,10 +48,9 @@ public class BusinessController {
 
     }
 
-    @PostMapping(value = "/card/enroll",
-    consumes = "application/json",
-    produces = "application/json")
+    @PostMapping(value = "/card/enroll", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TarjetaEnrollResponse> tarjetaEnroll(@RequestBody TarjetaEnrollRequest tarjetaEnrollRequest) {
+        System.out.println("Entrada: " + tarjetaEnrollRequest.getCardId());
         TarjetaEnrollResponse tarjetaEnrollResponse = new TarjetaEnrollResponse();
         try {
             tarjetaService.tarjetaEnroll(tarjetaEnrollRequest.getCardId());
