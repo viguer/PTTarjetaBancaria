@@ -23,7 +23,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping(value = "/api",
         method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
-@CrossOrigin(value = "*")
 public class BusinessController {
 
     @Autowired
