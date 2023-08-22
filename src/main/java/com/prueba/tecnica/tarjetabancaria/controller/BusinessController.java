@@ -23,7 +23,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping(value = "/api",
         method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE})
-@CrossOrigin
+@CrossOrigin(value = "*")
 public class BusinessController {
 
     @Autowired
@@ -48,8 +48,9 @@ public class BusinessController {
 
     }
 
-    @PostMapping(value = "/card/enroll", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/card/enroll")
     public ResponseEntity<TarjetaEnrollResponse> tarjetaEnroll(@RequestBody TarjetaEnrollRequest tarjetaEnrollRequest) {
+        System.out.println("Ingreso a metodo POST");
         TarjetaEnrollResponse tarjetaEnrollResponse = new TarjetaEnrollResponse();
         try {
             tarjetaService.tarjetaEnroll(tarjetaEnrollRequest.getCardId());
