@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.Random;
@@ -39,10 +41,16 @@ public class TransaccionService {
             if ((tarjeta.get().getSaldo() - valor) < 0)
                 throw new Error("Saldo insuficiente para realizar la transaccion");
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDateTime fechaVencimiento = LocalDate.parse("01/"+tarjeta.get().getFechaVencimiento(), formatter).atStartOfDay();
+            LocalDateTime fechaTransaccion = LocalDateTime.now();
+            if(fechaVencimiento.until(fechaTransaccion, ChronoUnit.DAYS) > 0)
+                throw new Error("La tarjeta se encuentra vencida");
+
             tarjeta.get().setSaldo(tarjeta.get().getSaldo() - valor);
             Transaccion transaccion = new Transaccion();
             transaccion.setIdTarjeta(tarjeta.get());
-            transaccion.setFechaTransaccion(LocalDateTime.now());
+            transaccion.setFechaTransaccion(fechaTransaccion);
             transaccion.setValorTransaccion(valor);
             transaccion.setIdTransaccion(randomString);
             transaccion.setEstado("Realizada");

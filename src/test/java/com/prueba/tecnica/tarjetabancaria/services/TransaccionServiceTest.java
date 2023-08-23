@@ -75,6 +75,7 @@ class TransaccionServiceTest {
         Tarjeta tarjeta = new Tarjeta();
         tarjeta.setEstado("Activada");
         tarjeta.setSaldo(200.0f);
+        tarjeta.setFechaVencimiento("12/2025");
 
         when(tarjetaRepository.findById(cardId)).thenReturn(Optional.of(tarjeta));
 
@@ -93,6 +94,32 @@ class TransaccionServiceTest {
         assertEquals(tarjeta.getSaldo(), 100);
     }
 
+    @Test
+    void realizarTransactionCardExpired() {
+        String cardId = "123";
+        float valor = 100.0f;
+        String randomString = "1234567890";
+
+        Random random = mock(Random.class);
+        when(random.nextLong()).thenReturn(1234567890L);
+
+        Tarjeta tarjeta = new Tarjeta();
+        tarjeta.setEstado("Activada");
+        tarjeta.setSaldo(200.0f);
+        tarjeta.setFechaVencimiento("08/2023");
+
+        when(tarjetaRepository.findById(cardId)).thenReturn(Optional.of(tarjeta));
+
+        Transaccion expectedTransaccion = new Transaccion();
+        expectedTransaccion.setIdTarjeta(tarjeta);
+        expectedTransaccion.setFechaTransaccion(LocalDateTime.now());
+        expectedTransaccion.setValorTransaccion(valor);
+        expectedTransaccion.setIdTransaccion(randomString);
+        expectedTransaccion.setEstado("Realizada");
+        when(transaccionRepository.save(any(Transaccion.class))).thenReturn(expectedTransaccion);
+
+        assertThrows(Error.class, () -> transaccionService.realizarTransaction(cardId, valor));
+    }
     @Test
     public void testRealizarTransactionCardNotFound() {
         String cardId = "456";
